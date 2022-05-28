@@ -27,9 +27,9 @@ def get_posts():
     return {"data": "Here are your posts!"}
 
 
-@app.post("/createposts")
+@app.post("/posts")
 def create_posts(post: Post):
     print(post.title)
     print(post.published)
 
-    return {"data": "new post"}
+    return {"data": post}
