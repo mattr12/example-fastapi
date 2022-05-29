@@ -1,23 +1,12 @@
 from typing import Optional
 from fastapi import FastAPI, Response, status, HTTPException, Depends
-from pydantic import BaseModel
 import psycopg2
 from psycopg2.extras import RealDictCursor
 from sqlalchemy.orm import Session
-from . import models
+from . import models, schemas
 from .database import get_db, engine
 
 models.Base.metadata.create_all(bind=engine)
-
-
-###
-### Pydantic schema that validates that the frontend
-### sent the expected data model
-###
-class Post(BaseModel):
-    title: str
-    content: str
-    published: bool = True
 
 
 # try:
@@ -74,7 +63,7 @@ def get_post(
 
 
 @app.post("/posts", status_code=status.HTTP_201_CREATED)
-def create_post(post: Post, db: Session = Depends(get_db)):
+def create_post(post: schemas.Post, db: Session = Depends(get_db)):
     # cursor.execute(
     #     """
     #     INSERT INTO posts (title, content, published)
@@ -116,7 +105,7 @@ def delete_post(id: int, db: Session = Depends(get_db)):
 
 
 @app.put("/posts/{id}")
-def update_post(id: int, post: Post, db: Session = Depends(get_db)):
+def update_post(id: int, post: schemas.Post, db: Session = Depends(get_db)):
     # cursor.execute(
     #     """
     # UPDATE posts
