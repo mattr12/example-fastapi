@@ -20,21 +20,21 @@ class Post(BaseModel):
     published: bool = True
 
 
-try:
-    conn = psycopg2.connect(
-        host="localhost",
-        database="fastapi",
-        user="fastapi_admin",
-        password="fastapi",
-        cursor_factory=RealDictCursor,
-    )
+# try:
+#     conn = psycopg2.connect(
+#         host="localhost",
+#         database="fastapi",
+#         user="fastapi_admin",
+#         password="fastapi",
+#         cursor_factory=RealDictCursor,
+#     )
 
-    cursor = conn.cursor()
+#     cursor = conn.cursor()
 
-    print("Database connection was successful!")
-except Exception as error:
-    print("Connecting to database failed")
-    print("Error: ", error)
+#     print("Database connection was successful!")
+# except Exception as error:
+#     print("Connecting to database failed")
+#     print("Error: ", error)
 
 
 app = FastAPI()
