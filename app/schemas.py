@@ -1,3 +1,4 @@
+from datetime import datetime
 from pydantic import BaseModel
 
 
@@ -5,7 +6,19 @@ from pydantic import BaseModel
 ### Pydantic schema that validates that the frontend
 ### sent the expected data model
 ###
-class Post(BaseModel):
+class PostBase(BaseModel):
     title: str
     content: str
     published: bool = True
+
+
+class PostCreate(PostBase):
+    pass
+
+
+class PostResponse(PostBase):
+    id: int
+    created_at: datetime
+
+    class Config:
+        orm_mode = True
