@@ -36,10 +36,11 @@ def get_post(id: int, db: Session = Depends(get_db)):
 def create_post(
     post: schemas.PostCreate,
     db: Session = Depends(get_db),
-    user_id: schemas.TokenData = Depends(oauth2.get_current_user),
+    current_user: models.User = Depends(oauth2.get_current_user),
 ):
 
-    print(user_id)
+    print(current_user.email)
+
     new_post = models.Post(**post.dict())
 
     db.add(new_post)
@@ -53,7 +54,7 @@ def create_post(
 def delete_post(
     id: int,
     db: Session = Depends(get_db),
-    user_id: schemas.TokenData = Depends(oauth2.get_current_user),
+    current_user: models.User = Depends(oauth2.get_current_user),
 ):
     post_query = db.query(models.Post).filter(models.Post.id == id)
 
@@ -74,7 +75,7 @@ def update_post(
     id: int,
     post: schemas.PostCreate,
     db: Session = Depends(get_db),
-    user_id: schemas.TokenData = Depends(oauth2.get_current_user),
+    current_user: models.User = Depends(oauth2.get_current_user),
 ):
     post_query = db.query(models.Post).filter(models.Post.id == id)
 
