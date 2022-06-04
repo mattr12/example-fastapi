@@ -43,7 +43,7 @@ def verify_access_token(token: str, credentials_exceptions):
 def get_current_user(token: str = Depends(oauth2_scheme)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_404_NOT_FOUND,
-        details=f"Could not validate credentials",
+        detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
 
