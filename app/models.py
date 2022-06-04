@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String, Boolean, TIMESTAMP, text, ForeignKey
+from sqlalchemy.orm import relationship
 from .database import Base
 
 
@@ -15,6 +16,7 @@ class Post(Base):
     user_id = Column(
         Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False
     )
+    user = relationship("User")  # fetches the User model associated with user_id
 
 
 class User(Base):
