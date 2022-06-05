@@ -4,7 +4,8 @@ from . import models
 from .database import engine
 from .routers import post, user, auth, vote
 
-models.Base.metadata.create_all(bind=engine)
+# no longer necessary with alembic
+# models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
